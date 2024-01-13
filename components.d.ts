@@ -7,15 +7,11 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     MainMenu: typeof import('./src/components/MainMenu.vue')['default']
     NConfigProvider: typeof import('naive-ui')['NConfigProvider']
-    NH2: typeof import('naive-ui')['NH2']
     NLayout: typeof import('naive-ui')['NLayout']
     NLayoutSider: typeof import('naive-ui')['NLayoutSider']
     NMenu: typeof import('naive-ui')['NMenu']
     NSpace: typeof import('naive-ui')['NSpace']
-    NSplit: typeof import('naive-ui')['NSplit']
-    NTimePicker: typeof import('naive-ui')['NTimePicker']
   }
 }
