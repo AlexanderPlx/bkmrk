@@ -89,7 +89,7 @@ const menuOptions: MainMenuOption[] & { url?: string } = [
   }
 ]
 
-const handleUpdateValue = (key: string, item: MainMenuOption) => {
+const handleUpdateValue = (item: MainMenuOption) => {
   const url = item.url
 
   openRecord(url);
