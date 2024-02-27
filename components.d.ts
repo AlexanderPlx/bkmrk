@@ -8,15 +8,10 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     MainMenu: typeof import('./src/components/MainMenu.vue')['default']
-    NButton: typeof import('naive-ui')['NButton']
-    NCard: typeof import('naive-ui')['NCard']
     NConfigProvider: typeof import('naive-ui')['NConfigProvider']
     NLayout: typeof import('naive-ui')['NLayout']
     NLayoutSider: typeof import('naive-ui')['NLayoutSider']
     NMenu: typeof import('naive-ui')['NMenu']
-    NMessageProvider: typeof import('naive-ui')['NMessageProvider']
-    NModal: typeof import('naive-ui')['NModal']
-    NModalProvider: typeof import('naive-ui')['NModalProvider']
     NSpace: typeof import('naive-ui')['NSpace']
   }
 }

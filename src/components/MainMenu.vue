@@ -6,6 +6,7 @@ type MainMenuOption = MenuOption & { url?: string }
 
 const createWinBox = useWinBox()
 const limitOfWinBox = 15;
+const urlSet = new Set();
 const windowWidth: number = window.innerWidth;
 const windowHeight: number = window.innerHeight;
 const widthWinBox = 900;
@@ -34,6 +35,7 @@ const openRecord = (url?: string) => {
     height: `${heightWinBox}px`,
     onclose: () => {
       --counterWinBox
+      urlSet.delete(winBox.url)
       return false
     }
   })
@@ -119,12 +121,18 @@ const menuOptions: MainMenuOption[] & { url?: string } = [
   }
 ]
 
-const urlArray: string[] = [];
-
 const handleUpdateValue = (_key: string, item: MainMenuOption) => {
-  const url = item.url
+  const url = <string>item.url
 
-  openRecord(url);
+  if (urlSet.size < limitOfWinBox && !urlSet.has(url)) {
+    urlSet.add(url);
+    openRecord(url);
+    console.log('urlSet.size', urlSet.size)
+
+    return;
+  }
+
+  console.log('bubbling')
 }
 </script>
 
