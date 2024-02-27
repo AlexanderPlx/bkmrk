@@ -7,13 +7,16 @@ type MainMenuOption = MenuOption & { url?: string }
 const createWinBox = useWinBox()
 
 const openRecord = (url?: string) => {
-  const randomId = Math.floor(Math.random() * 20) + 1
+  const randomId = Math.floor(Math.random() * 20) + 1;
 
-  createWinBox({
+  const winBox = createWinBox({
     title: url ?? `Fox #${randomId}`,
     url: url ?? `https://randomfox.ca/images/${randomId}.jpg`,
     class: 'modern',
+    x: '300px',
+    y: '20px'
   })
+
 }
 
 const menuOptions: MainMenuOption[] & { url?: string } = [
@@ -89,7 +92,7 @@ const menuOptions: MainMenuOption[] & { url?: string } = [
   }
 ]
 
-const handleUpdateValue = (item: MainMenuOption) => {
+const handleUpdateValue = (_key: string, item: MainMenuOption) => {
   const url = item.url
 
   openRecord(url);
