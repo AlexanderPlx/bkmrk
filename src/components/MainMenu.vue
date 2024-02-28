@@ -12,40 +12,41 @@ const windowHeight: number = window.innerHeight;
 const widthWinBox = 900;
 const heightWinBox = 500;
 
-let counterWinBox = 0;
 let x = 280;
 let y = 0;
 
 const openRecord = (url?: string) => {
 
-  if (counterWinBox === limitOfWinBox) {
+  if (urlSet.size === limitOfWinBox) {
   // necessary to add notification of achieved limitOfWinBox
   return
   }
 
-  const randomId = Math.floor(Math.random() * 20) + 1;
-
-  const winBox = createWinBox({
-    title: url ?? `Fox #${randomId}`,
-    url: url ?? `https://randomfox.ca/images/${randomId}.jpg`,
-    class: 'modern',
-    x: `${x += 20}px`,
-    y: `${y += 20}px`,
-    width: `${widthWinBox}px`,
-    height: `${heightWinBox}px`,
-    onclose: () => {
-      --counterWinBox
-      urlSet.delete(winBox.url)
-      return false
-    }
-  })
+  if (urlSet.has(url)) {
+    console.log('babbling')
+    return;
+  }
 
   if ((widthWinBox + x + 15) > windowWidth || (heightWinBox + y + 15) > windowHeight) {
     x = 280;
     y = 0;
   }
 
-  ++counterWinBox;
+  const winBox = createWinBox({
+    title: url,
+    url: url,
+    class: 'modern',
+    x: `${x += 20}px`,
+    y: `${y += 20}px`,
+    width: `${widthWinBox}px`,
+    height: `${heightWinBox}px`,
+    onclose: () => {
+      urlSet.delete(winBox.title)
+      return false
+    }
+  })
+
+  urlSet.add(winBox.title);
 }
 
 const menuOptions: MainMenuOption[] & { url?: string } = [
@@ -122,17 +123,11 @@ const menuOptions: MainMenuOption[] & { url?: string } = [
 ]
 
 const handleUpdateValue = (_key: string, item: MainMenuOption) => {
-  const url = <string>item.url
 
-  if (urlSet.size < limitOfWinBox && !urlSet.has(url)) {
-    urlSet.add(url);
-    openRecord(url);
-    console.log('urlSet.size', urlSet.size)
+  const randomId = Math.floor(Math.random() * 20) + 1;
+  const url = <string>item.url ?? `https://randomfox.ca/images/${randomId}.jpg`;
 
-    return;
-  }
-
-  console.log('bubbling')
+  openRecord(url);
 }
 </script>
 
