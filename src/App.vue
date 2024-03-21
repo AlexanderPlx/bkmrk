@@ -13,7 +13,9 @@ import MainMenu from './components/MainMenu.vue'
             :show-collapsed-content="false"
             content-style="padding: 12px;"
         >
-          <MainMenu />
+          <n-message-provider :placement="'bottom-left'">
+            <MainMenu />
+          </n-message-provider>
         </n-layout-sider>
         <n-layout>
         </n-layout>

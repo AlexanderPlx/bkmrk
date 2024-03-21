@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useWinBox } from 'vue-winbox'
-import { MenuOption } from 'naive-ui'
+import { MenuOption, useMessage } from 'naive-ui'
 
 type MainMenuOption = MenuOption & { url?: string }
 
@@ -15,6 +15,14 @@ const heightWinBox = 500;
 let x = 280;
 let y = 0;
 
+const message = useMessage();
+function createMessage () {
+  message.warning(
+      `Лимит открытых закладок: ${limitOfWinBox} шт.`,
+      { duration: 5000 }
+  )
+}
+
 const openRecord = (url?: string) => {
 
   for (let item of winBoxArray) {
@@ -26,8 +34,9 @@ const openRecord = (url?: string) => {
   }
 
   if (winBoxArray.length === limitOfWinBox) {
-    // necessary to add notification of achieved limitOfWinBox
-    return
+    createMessage();
+
+    return;
   }
 
   if ((widthWinBox + x + 15) > windowWidth || (heightWinBox + y + 15) > windowHeight) {
