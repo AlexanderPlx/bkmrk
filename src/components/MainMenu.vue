@@ -6,7 +6,7 @@ type MainMenuOption = MenuOption & { url?: string }
 
 const createWinBox = useWinBox()
 const limitOfWinBox = 15;
-const urlSet = new Set();
+const winBoxArray = [];
 const windowWidth: number = window.innerWidth;
 const windowHeight: number = window.innerHeight;
 const widthWinBox = 900;
@@ -17,14 +17,17 @@ let y = 0;
 
 const openRecord = (url?: string) => {
 
-  if (urlSet.size === limitOfWinBox) {
-  // necessary to add notification of achieved limitOfWinBox
-  return
+  for (let item of winBoxArray) {
+    if (item.title === url) {
+      item.focus();
+
+      return;
+    }
   }
 
-  if (urlSet.has(url)) {
-    console.log('babbling')
-    return;
+  if (winBoxArray.length === limitOfWinBox) {
+    // necessary to add notification of achieved limitOfWinBox
+    return
   }
 
   if ((widthWinBox + x + 15) > windowWidth || (heightWinBox + y + 15) > windowHeight) {
@@ -41,12 +44,13 @@ const openRecord = (url?: string) => {
     width: `${widthWinBox}px`,
     height: `${heightWinBox}px`,
     onclose: () => {
-      urlSet.delete(winBox.title)
+      let index = winBoxArray.findIndex((item) => item.title === winBox.title);
+      index !== -1 ? winBoxArray.splice(index, 1) : null;
       return false
     }
   })
 
-  urlSet.add(winBox.title);
+  winBoxArray.push(winBox);
 }
 
 const menuOptions: MainMenuOption[] & { url?: string } = [
