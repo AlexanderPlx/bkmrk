@@ -6,7 +6,7 @@ type MainMenuOption = MenuOption & { url?: string }
 
 const createWinBox = useWinBox()
 const limitOfWinBox = 15;
-const winBoxArray = [];
+const winBoxArray: never = [];
 const windowWidth: number = window.innerWidth;
 const windowHeight: number = window.innerHeight;
 const widthWinBox = 900;
