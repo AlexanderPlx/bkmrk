@@ -9,6 +9,9 @@ const emit = defineEmits(['changeTheme']);
 const showModalSettings = ref(false);
 const showModalLogin = ref(false);
 
+let login = ref();
+let password = ref();
+
 function onChangeTheme(value: boolean) {
   value ? emit('changeTheme', null) : emit('changeTheme', darkTheme);
 }
@@ -37,6 +40,7 @@ function onChangeTheme(value: boolean) {
                   placeholder="Login"
                   :maxlength="12"
                   style="margin-bottom: 10px"
+                  v-model:value.lazy.trim="login"
               />
               <n-input
                   type="password"
@@ -44,11 +48,12 @@ function onChangeTheme(value: boolean) {
                   placeholder="Password"
                   :maxlength="8"
                   style="margin-bottom: 10px"
+                  v-model:value.lazy.trim="password"
               />
             </form>
             <n-button-group>
               <n-button round
-                        @click="console.log('Login')">
+                        @click="console.log('Login', login, 'password', password)">
                 Login
               </n-button>
               <n-button round
