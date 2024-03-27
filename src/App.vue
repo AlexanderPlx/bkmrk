@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { darkTheme } from 'naive-ui'
-import MainMenu from './components/MainMenu.vue'
 import { ref } from 'vue'
 
+import MainMenu from './components/MainMenu.vue'
+import ToolBar from './components/ToolBar.vue';
+
 const theme = ref(darkTheme);
+
 </script>
 
 <template>
@@ -14,21 +17,19 @@ const theme = ref(darkTheme);
             bordered
             show-trigger
             :show-collapsed-content="false"
-            content-style="padding: 12px;"
+            content-style="padding: 12px;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: space-between;"
         >
-          <n-switch
-              @update:value="(v) => v ? theme = null : theme = darkTheme"
-          >
-            <template #checked>
-              Light theme
-            </template>
-            <template #unchecked>
-              Dark theme
-            </template>
-          </n-switch>
           <n-message-provider :placement="'bottom-left'">
             <MainMenu />
           </n-message-provider>
+
+          <ToolBar class="button-group"
+                   v-bind:theme="theme"
+                   @changeTheme="(value) => theme = value"
+          />
         </n-layout-sider>
         <n-layout>
         </n-layout>
@@ -38,5 +39,7 @@ const theme = ref(darkTheme);
 </template>
 
 <style scoped>
-
+  .button-group {
+    align-self: center;
+  }
 </style>
